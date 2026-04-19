@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scholar Foundry · No Barriers Education</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#2a0a0f;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+:root{--md:#4A1219;--mg:#6B1F2A;--gold:#C9A84C;--gl:#E8CC80;--gp:#FBF5E6;--blue:#4A9FD4;--bl:#A8CFE8;--bp:#EBF4FA;--ow:#FAF8F5;--td:#1A0A0D;--tl:#9A7A80;}
+.app{width:100%;max-width:480px;}
+.s{display:none;flex-direction:column;min-height:560px;background:var(--md);border-radius:20px;padding:28px 24px;}
+.s.on{display:flex;}
+.bs{background:var(--md);border-radius:20px;display:none;flex-direction:column;align-items:center;justify-content:center;min-height:560px;text-align:center;padding:24px;}
+.bs.on{display:flex;}
+.rs{background:var(--md);border-radius:20px;overflow:hidden;display:none;flex-direction:column;min-height:560px;}
+.rs.on{display:flex;}
+.cs{background:var(--md);border-radius:20px;display:none;flex-direction:column;min-height:560px;padding:28px 24px;}
+.cs.on{display:flex;}
+.bps{background:var(--ow);border-radius:20px;overflow:hidden;display:none;flex-direction:column;min-height:560px;}
+.bps.on{display:flex;}
+.ss{background:var(--md);border-radius:20px;display:none;flex-direction:column;min-height:560px;overflow:hidden;}
+.ss.on{display:flex;}
+.ey{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.qp{display:flex;gap:5px;margin-bottom:22px;}
+.qd{height:3px;flex:1;border-radius:999px;background:rgba(255,255,255,.15);}
+.qd.on{background:var(--gold);}
+.qt{font-size:17px;font-weight:600;color:#fff;line-height:1.4;margin-bottom:5px;}
+.qs{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.5;}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.qc{background:rgba(74,159,212,.12);border:1px solid rgba(74,159,212,.4);border-radius:14px;padding:12px 13px;cursor:pointer;text-align:left;font-family:inherit;font-size:12px;line-height:1.5;transition:all .2s;width:100%;font-weight:500;color:#4A9FD4;}
+.qc:hover{background:rgba(74,159,212,.22);}
+.qc.sel{background:var(--gold);border-color:var(--gold);color:#fff;}
+.sc{background:rgba(74,159,212,.12);border:1px solid rgba(74,159,212,.35);border-radius:14px;padding:13px 15px;cursor:pointer;text-align:left;font-family:inherit;transition:all .2s;width:100%;display:flex;align-items:center;gap:13px;margin-bottom:8px;}
+.sc:hover{background:rgba(74,159,212,.22);}
+.sc.sel{background:var(--gold);border-color:var(--gold);}
+.si{font-size:22px;flex-shrink:0;}
+.sn{font-size:13px;font-weight:600;color:#4A9FD4;display:block;margin-bottom:2px;}
+.sc.sel .sn{color:#fff;}
+.sd{font-size:11px;color:rgba(74,159,212,.75);line-height:1.4;}
+.sc.sel .sd{color:rgba(255,255,255,.8);}
+.cc{background:rgba(74,159,212,.12);border:1px solid rgba(74,159,212,.35);border-radius:14px;padding:14px 13px;cursor:pointer;text-align:left;font-family:inherit;transition:all .2s;width:100%;display:flex;flex-direction:column;gap:5px;}
+.cc:hover{background:rgba(74,159,212,.22);}
+.cc.sel{background:var(--gold);border-color:var(--gold);}
+.ci{font-size:20px;}
+.cn{font-size:12px;font-weight:600;color:#4A9FD4;}
+.cc.sel .cn{color:#fff;}
+.csub{font-size:10px;color:rgba(74,159,212,.75);line-height:1.4;}
+.cc.sel .csub{color:rgba(255,255,255,.8);}
+.btn{width:100%;padding:11px;background:var(--gold);border:none;border-radius:12px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;opacity:.4;transition:opacity .2s;margin-top:auto;}
+.btn.on{opacity:1;}
+.btna{width:100%;padding:11px;background:var(--gold);border:none;border-radius:12px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:auto;}
+.bi{font-size:48px;margin-bottom:18px;animation:spin 2s linear infinite;display:block;}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.bl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.bt{font-size:12px;color:rgba(255,255,255,.5);}
+.rt{padding:28px 24px 32px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.re{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0;animation:fu .6s ease forwards .2s;}
+.rl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;opacity:0;animation:fu .6s ease forwards .5s;}
+.ri{font-size:44px;margin-bottom:12px;opacity:0;animation:fu .8s ease forwards .6s;}
+.rn{font-size:34px;font-weight:700;color:#fff;margin-bottom:14px;opacity:0;animation:fu .8s ease forwards .8s;}
+.rd{font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;max-width:300px;opacity:0;animation:fu .8s ease forwards 1.1s;}
+.rs2{font-size:13px;color:var(--gl);line-height:1.7;max-width:300px;margin-top:8px;opacity:0;animation:fu .8s ease forwards 1.4s;}
+.rca{opacity:0;animation:fu .6s ease forwards 1.7s;margin-top:16px;width:100%;}
+.rca button{width:100%;padding:10px;background:transparent;border:1px solid rgba(255,255,255,.25);border-radius:12px;color:rgba(255,255,255,.8);font-size:12px;cursor:pointer;font-family:inherit;}
+.rb{background:var(--mg);padding:16px 22px;opacity:0;animation:fu .6s ease forwards 2s;}
+.rbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;}
+.mb{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.mp{background:rgba(255,255,255,.2);border-radius:8px;padding:4px 9px;font-size:11px;color:#fff;font-weight:500;}
+.mp.em{background:rgba(255,255,255,.08);color:rgba(255,255,255,.3);}
+.mc{color:rgba(255,255,255,.35);font-size:11px;}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tr{display:flex;align-items:flex-start;margin-bottom:20px;}
+.pt{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+.pd{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.3);font-weight:600;}
+.pd.ac{border-color:var(--gold);color:var(--gold);}
+.pd.dn{background:var(--gold);border-color:var(--gold);color:#fff;}
+.pl{font-size:9px;color:rgba(255,255,255,.4);text-align:center;letter-spacing:.04em;}
+.pl.ac{color:var(--gold);}
+.tl{height:1.5px;flex:1;background:rgba(255,255,255,.1);margin-top:14px;}
+.tl.dn{background:var(--gold);}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.pw{background:rgba(74,159,212,.12);border:1px solid rgba(74,159,212,.4);border-radius:14px;padding:13px;cursor:pointer;text-align:left;font-family:inherit;transition:all .2s;width:100%;display:flex;flex-direction:column;gap:3px;}
+.pw:hover{background:rgba(74,159,212,.22);}
+.pw.sel{background:var(--gold);border-color:var(--gold);}
+.pwi{font-size:18px;}
+.pwn{font-size:12px;font-weight:600;color:#4A9FD4;}
+.pw.sel .pwn{color:#fff;}
+.pws{font-size:10px;color:rgba(74,159,212,.8);line-height:1.4;}
+.pw.sel .pws{color:rgba(255,255,255,.8);}
+.pi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;margin-bottom:18px;}
+.pi p{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin:0;}
+.pi strong{color:var(--gl);}
+.combo-name{font-size:32px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:14px;letter-spacing:-.02em;}
+.combo-icons{font-size:30px;margin-bottom:18px;display:flex;gap:8px;align-items:center;}
+.combo-plus{font-size:18px;color:rgba(255,255,255,.3);}
+.combo-desc{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:10px;}
+.combo-detail{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+.combo-div{width:40px;height:1px;background:rgba(255,255,255,.15);margin:18px 0;}
+.bk{background:transparent;border:none;color:rgba(255,255,255,.5);font-size:12px;cursor:pointer;font-family:inherit;padding:0;margin-bottom:12px;}
+.bph{background:var(--md);padding:24px 22px;}
+.bpe{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.bpt{font-size:20px;font-weight:700;color:#fff;margin-bottom:3px;}
+.bps2{font-size:11px;color:rgba(255,255,255,.55);}
+.bpb{padding:18px 20px;flex:1;overflow-y:auto;}
+.bpsec{margin-bottom:16px;}
+.bpsl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--tl);margin-bottom:7px;}
+.bpc{background:#fff;border:1px solid rgba(107,31,42,.1);border-radius:12px;padding:13px 15px;}
+.bpc p{font-size:13px;color:var(--td);line-height:1.7;margin:0;}
+.bpv{background:var(--mg);border-radius:12px;padding:14px 16px;}
+.bpv p{font-size:14px;color:#fff;line-height:1.7;font-style:italic;margin:0;}
+.bpm{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.btg{display:inline-flex;align-items:center;gap:4px;background:var(--gp);border:1px solid var(--gold);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--td);font-weight:600;}
+.bbtg{display:inline-flex;align-items:center;gap:4px;background:var(--bp);border:1px solid var(--bl);border-radius:999px;padding:3px 10px;font-size:11px;color:#2A5F80;font-weight:600;}
+.bmtg{display:inline-flex;align-items:center;gap:4px;background:rgba(107,31,42,.08);border:1px solid rgba(107,31,42,.2);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--mg);font-weight:600;}
+.bpac{padding:0 20px 20px;display:flex;flex-direction:column;gap:8px;}
+.bpbtn{width:100%;padding:11px;background:var(--gold);border:none;border-radius:12px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.bpbg{width:100%;padding:9px;background:transparent;border:1px solid rgba(107,31,42,.2);border-radius:12px;color:var(--tl);font-size:12px;cursor:pointer;font-family:inherit;}
+.sh{background:var(--mg);padding:16px 20px;display:flex;align-items:center;gap:10px;}
+.sbk{background:transparent;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:0;}
+.st{font-size:13px;font-weight:600;color:#fff;flex:1;}
+.sm{font-size:10px;color:rgba(255,255,255,.5);}
+.smsg{flex:1;overflow-y:auto;padding:16px 16px 8px;}
+.msg{margin-bottom:12px;display:flex;flex-direction:column;}
+.msg.u{align-items:flex-end;}
+.msg.a{align-items:flex-start;}
+.mb2{max-width:85%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.6;}
+.msg.u .mb2{background:var(--gold);color:#fff;border-bottom-right-radius:4px;}
+.msg.a .mb2{background:rgba(255,255,255,.1);color:#fff;border-bottom-left-radius:4px;}
+.msg.a .mb2.ty{color:rgba(255,255,255,.5);font-style:italic;}
+.sir{padding:12px 16px;display:flex;gap:8px;border-top:1px solid rgba(255,255,255,.1);}
+.si2{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:9px 14px;font-size:13px;font-family:inherit;color:#fff;outline:none;}
+.si2::placeholder{color:rgba(255,255,255,.4);}
+.si2:focus{border-color:var(--gold);}
+.snd{background:var(--gold);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:16px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="s on" id="p1">
+  <div class="ey">Scholar Foundry · No Barriers Education</div>
+  <div class="tr"><div class="pt"><div class="pd ac">I</div><div class="pl ac">Machine</div></div><div class="tl"></div><div class="pt"><div class="pd">II</div><div class="pl">Wiring</div></div><div class="tl"></div><div class="pt"><div class="pd">III</div><div class="pl">Fuel</div></div><div class="tl"></div><div class="pt"><div class="pd">IV</div><div class="pl">Blueprint</div></div></div>
+  <div class="qp" id="p1p"><div class="qd on"></div><div class="qd"></div><div class="qd"></div><div class="qd"></div></div>
+  <div class="qt" id="p1q"></div>
+  <div class="qs">No right answers. Just honest ones.</div>
+  <div id="p1c"></div>
+  <button class="btn" id="p1n" onclick="p1x()">Continue →</button>
+</div>
+
+<div class="bs" id="p1b"><div class="bl">Identifying your machine type</div><span class="bi">⚙</span><div class="bt">Analyzing your answers...</div></div>
+
+<div class="rs" id="p1r">
+  <div class="rt"><div class="re">Pillar I Complete · Machine Type</div><div class="ri" id="r1i">🏗️</div><div class="rl">Your machine is a</div><div class="rn" id="r1n">Builder</div><div class="rd" id="r1d"></div><div class="rs2" id="r1s"></div><div class="rca"><button onclick="go('p2')">Continue to Pillar II →</button></div></div>
+  <div class="rb"><div class="rbl">Your machine so far</div><div class="mb"><span class="mp" id="b1t">—</span><span class="mc">+</span><span class="mp em">Wiring ···</span><span class="mc">+</span><span class="mp em">Fuel ···</span><span class="mc">+</span><span class="mp em">Path ···</span></div></div>
+</div>
+
+<div class="s" id="p2">
+  <div class="ey">Pillar II · Your Wiring</div>
+  <div class="tr"><div class="pt"><div class="pd dn">✓</div><div class="pl">Machine</div></div><div class="tl dn"></div><div class="pt"><div class="pd ac">II</div><div class="pl ac">Wiring</div></div><div class="tl"></div><div class="pt"><div class="pd">III</div><div class="pl">Fuel</div></div><div class="tl"></div><div class="pt"><div class="pd">IV</div><div class="pl">Blueprint</div></div></div>
+  <div class="qp" id="p2p"><div class="qd on"></div><div class="qd"></div><div class="qd"></div><div class="qd"></div></div>
+  <div class="qt" id="p2q"></div>
+  <div class="qs">Think about how you actually operate — not how you wish you did.</div>
+  <div id="p2c"></div>
+  <button class="btn" id="p2n" onclick="p2x()">Continue →</button>
+</div>
+
+<div class="bs" id="p2b"><div class="bl">Mapping your wiring</div><span class="bi">🔌</span><div class="bt">Understanding how your machine operates...</div></div>
+
+<div class="rs" id="p2r">
+  <div class="rt"><div class="re">Pillar II Complete · Your Wiring</div><div class="ri" id="r2i">🧪</div><div class="rl">Your wiring is</div><div class="rn" id="r2n">Experimenter</div><div class="rd" id="r2d"></div><div class="rs2" id="r2s"></div><div class="rca"><button onclick="showCombo()">See what this means →</button></div></div>
+  <div class="rb"><div class="rbl">Your machine so far</div><div class="mb"><span class="mp" id="b2t">—</span><span class="mc">+</span><span class="mp" id="b2w">—</span><span class="mc">+</span><span class="mp em">Fuel ···</span><span class="mc">+</span><span class="mp em">Path ···</span></div></div>
+</div>
+
+<div class="cs" id="combo">
+  <div class="ey">Your Machine So Far</div>
+  <div class="tr"><div class="pt"><div class="pd dn">✓</div><div class="pl">Machine</div></div><div class="tl dn"></div><div class="pt"><div class="pd dn">✓</div><div class="pl">Wiring</div></div><div class="tl"></div><div class="pt"><div class="pd">III</div><div class="pl">Fuel</div></div><div class="tl"></div><div class="pt"><div class="pd">IV</div><div class="pl">Blueprint</div></div></div>
+  <div class="combo-icons" id="coi">🏗️ <span class="combo-plus">+</span> 🧪</div>
+  <div class="combo-name" id="con">The Experimenting Builder</div>
+  <div class="combo-desc" id="cod">You build by doing.</div>
+  <div class="combo-div"></div>
+  <div class="combo-detail" id="codt">Now let's figure out what your machine runs on.</div>
+  <button class="btna" onclick="go('p3cat')" style="margin-top:auto;">Continue to Pillar III →</button>
+</div>
+
+<div class="s" id="p3cat">
+  <div class="ey">Pillar III · Your Fuel</div>
+  <div class="tr"><div class="pt"><div class="pd dn">✓</div><div class="pl">Machine</div></div><div class="tl dn"></div><div class="pt"><div class="pd dn">✓</div><div class="pl">Wiring</div></div><div class="tl dn"></div><div class="pt"><div class="pd ac">III</div><div class="pl ac">Fuel</div></div><div class="tl"></div><div class="pt"><div class="pd">IV</div><div class="pl">Blueprint</div></div></div>
+  <div class="pi"><p>You're a <strong id="p3id">Narrator Builder</strong>. What part of the world does your machine want to work on?</p></div>
+  <div class="qt">Pick a broad area first.</div>
+  <div class="qs">We'll get specific next.</div>
+  <div id="p3cats"></div>
+  <button class="btn" id="p3cn" onclick="showIssues()" style="margin-top:auto;">Continue →</button>
+</div>
+
+<div class="s" id="p3iss">
+  <div class="ey">Pillar III · Your Fuel</div>
+  <div class="tr"><div class="pt"><div class="pd dn">✓</div><div class="pl">Machine</div></div><div class="tl dn"></div><div class="pt"><div class="pd dn">✓</div><div class="pl">Wiring</div></div><div class="tl dn"></div><div class="pt"><div class="pd ac">III</div><div class="pl ac">Fuel</div></div><div class="tl"></div><div class="pt"><div class="pd">IV</div><div class="pl">Blueprint</div></div></div>
+  <button class="bk" onclick="go('p3cat')">← Back</button>
+  <div class="qt" id="p3it">Within People &amp; Society...</div>
+  <div class="qs">Which one do you feel most called to work on?</div>
+  <div id="p3iss2"></div>
+  <button class="btn" id="p3in" onclick="showP3Build()" style="margin-top:auto;">Continue →</button>
+</div>
+
+<div class="bs" id="p3b"><div class="bl">Loading your fuel</div><span class="bi">⛽</span><div class="bt">Connecting your story to your machine...</div></div>
+
+<div class="rs" id="p3r">
+  <div class="rt"><div class="re">Pillar III Complete · Your Fuel</div><div class="ri" id="r3i">🌍</div><div class="rl">Your fuel is</div><div class="rn" id="r3n">Education</div><div class="rd">This is the problem space that powers everything your machine does.</div><div class="rs2">Your machine type, wiring, and fuel are now aligned. You know what you are, how you think, and what you're built to work on.</div><div class="rca"><button onclick="go('p4')">Continue to Pillar IV →</button></div></div>
+  <div class="rb"><div class="rbl">Your machine so far</div><div class="mb"><span class="mp" id="b3t">—</span><span class="mc">+</span><span class="mp" id="b3w">—</span><span class="mc">+</span><span class="mp" id="b3f">—</span><span class="mc">+</span><span class="mp em">Path ···</span></div></div>
+</div>
+
+<div class="s" id="p4">
+  <div class="ey">Pillar IV · Civic Value Activation</div>
+  <div class="tr"><div class="pt"><div class="pd dn">✓</div><div class="pl">Machine</div></div><div class="tl dn"></div><div class="pt"><div class="pd dn">✓</div><div class="pl">Wiring</div></div><div class="tl dn"></div><div class="pt"><div class="pd dn">✓</div><div class="pl">Fuel</div></div><div class="tl dn"></div><div class="pt"><div class="pd ac">IV</div><div class="pl ac">Blueprint</div></div></div>
+  <div class="pi"><p>Last step. Your machine is assembled. Where are you pointing it?</p></div>
+  <div class="qt">Where are you thinking about heading after high school?</div>
+  <div class="qs">No pressure. Even "still figuring it out" is a real answer.</div>
+  <div class="pg" id="p4pw"></div>
+  <button class="btn" id="p4n" onclick="genBP()" style="margin-top:auto;">Generate My Blueprint →</button>
+</div>
+
+<div class="bs" id="p4b"><div class="bl">Activating your civic value</div><span class="bi">🌐</span><div class="bt" id="p4bt">Building your blueprint...</div></div>
+
+<div class="bps" id="bp">
+  <div class="bph"><div class="bpe">⚙ Scholar Foundry · Civic Value Blueprint</div><div class="bpt" id="bpt">The Experimenting Builder</div><div class="bps2" id="bps3">Powered by Education</div></div>
+  <div class="bpb">
+    <div class="bpm" id="bpm"></div>
+    <div class="bpsec"><div class="bpsl">Your Voice</div><div class="bpv"><p id="bpvo">Loading...</p></div></div>
+    <div class="bpsec"><div class="bpsl">Your First Project</div><div class="bpc"><p id="bppr">Loading...</p></div></div>
+    <div class="bpsec"><div class="bpsl">Your Path Forward</div><div class="bpc"><p id="bppa">Loading...</p></div></div>
+    <div class="bpsec"><div class="bpsl">Your Edge</div><div class="bpc"><p id="bped">Loading...</p></div></div>
+  </div>
+  <div class="bpac"><button class="bpbtn" onclick="openSB()">Keep Building in Sandbox →</button><button class="bpbg" onclick="restart()">↩ Start over</button></div>
+</div>
+
+<div class="ss" id="sb">
+  <div class="sh"><button class="sbk" onclick="go('bp')">←</button><div><div class="st">Scholar Foundry Sandbox</div><div class="sm" id="sbm">Your machine is ready</div></div></div>
+  <div class="smsg" id="sbms"></div>
+  <div class="sir"><input class="si2" id="sbi" placeholder="What are you thinking about..." onkeydown="if(event.key==='Enter')sendSB()"><button class="snd" onclick="sendSB()">↑</button></div>
+</div>
+
+</div>
+<script>
+var S={type:'',ti:'',wire:'',wi:'',fuel:'',fi:'',path:'',pi2:''};
+var p1s={builder:0,provider:0,communicator:0},p1q=0,p1sel=null;
+var p2s={experimenter:0,collaborator:0,narrator:0},p2q=0,p2sel=null;
+var catSel=null,issSel=null,pathSel=null,sbh=[];
+
+var M={
+  builder:{icon:'🏗️',type:'Builder',desc:'You enjoy working with your hands and building things from the ground up.',soc:'Society needs people like you to construct the foundations that make the world more accessible for everyone.'},
+  provider:{icon:'🤝',type:'Provider',desc:'You enjoy helping others and getting them to be their best selves.',soc:'Society needs people like you to make others feel supported, dignified, and whole.'},
+  communicator:{icon:'🎙️',type:'Communicator',desc:'You have a natural ability to connect with people and make ideas land.',soc:'Society needs people like you to bridge divides and move the world through the power of words.'}
+};
+var W={
+  experimenter:{icon:'🧪',type:'Experimenter',desc:'You learn by jumping in and figuring it out as you go.',soc:"Society needs people like you who aren't afraid to try, fail, and try again until something works."},
+  collaborator:{icon:'🤝',type:'Collaborator',desc:"You think best when you're thinking with other people.",soc:'Society needs people like you to bring minds together and turn individual ideas into collective breakthroughs.'},
+  narrator:{icon:'📖',type:'Narrator',desc:'You make sense of the world by turning it into a story.',soc:'Society needs people like you to give meaning to complexity and move people through the power of how you frame things.'}
+};
+var C={
+  'Builder+Experimenter':{name:'The Experimenting Builder',desc:"You build by doing. You don't wait for a plan — you make something, see what breaks, and make it better.",detail:"Your best work comes from iteration, not preparation. Drop you in anything and you'll figure it out by building your way through it."},
+  'Builder+Collaborator':{name:'The Collaborative Builder',desc:'You build with people. You bring others into your process and create things that reflect more than just your own vision.',detail:"Your projects become more than the sum of their parts because you know how to make space for everyone who touches them."},
+  'Builder+Narrator':{name:'The Narrative Builder',desc:"You build with meaning. You don't just make things — you make things that tell a story.",detail:'Every project you touch has a why baked into it. The things you create don\'t just work — they say something.'},
+  'Provider+Experimenter':{name:'The Experimenting Provider',desc:"You help by trying things. You don't wait for the perfect approach — you dive in and adjust as you go.",detail:'Your care is practical and responsive. You meet people where they are and figure out the rest from there.'},
+  'Provider+Collaborator':{name:'The Collaborative Provider',desc:'You help through relationship. You bring people together and create environments where everyone feels supported.',detail:"You don't just help individuals — you build communities of care around them."},
+  'Provider+Narrator':{name:'The Narrative Provider',desc:'You help through story. You make people feel understood by reflecting their experience back in ways that give it meaning.',detail:"People leave conversations with you feeling seen in a way they can't quite explain. That's your power."},
+  'Communicator+Experimenter':{name:'The Experimenting Communicator',desc:'You communicate by testing. You try different messages, read the room, and keep adjusting until something lands.',detail:'You learn what resonates by putting it out there. Your instincts are sharp because you never stop running experiments.'},
+  'Communicator+Collaborator':{name:'The Collaborative Communicator',desc:"You communicate through community. You don't just send messages — you build conversations and move people through shared dialogue.",detail:"You're not a broadcaster. You're a connector who knows that the best ideas emerge when people talk to each other."},
+  'Communicator+Narrator':{name:'The Narrative Communicator',desc:"You communicate through story. You don't just inform — you move people.",detail:"Your words make people feel something before they think something. That's a rare and powerful combination."}
+};
+var CATS=[
+  {icon:'👥',name:'People & Society',sub:'Health, education, justice, housing',issues:[
+    {icon:'📚',name:'Education Inequality',desc:"The gap between who gets access to great schools and who gets left behind."},
+    {icon:'🧠',name:'Mental Health',desc:"The space between who needs support and who actually gets it."},
+    {icon:'🩺',name:'Healthcare Access',desc:"Why getting healthy shouldn't depend on how much money you have."},
+    {icon:'✊',name:'Social Justice',desc:"The systems that decide who gets treated fairly — and who doesn't."},
+    {icon:'🏠',name:'Housing & Homelessness',desc:"Why some neighborhoods get everything and others get nothing."}
+  ]},
+  {icon:'🌍',name:'Planet & Environment',sub:'Climate, energy, food',issues:[
+    {icon:'🌱',name:'Climate Change',desc:"The slow emergency that's already reshaping how we live."},
+    {icon:'⚡',name:'Clean Energy',desc:"What happens when we stop burning the world to keep the lights on."},
+    {icon:'🌾',name:'Food Systems',desc:"How we grow, distribute, and waste the food that keeps us alive."},
+    {icon:'💧',name:'Water Access',desc:"The resource wars nobody's talking about yet."}
+  ]},
+  {icon:'💸',name:'Economy & Systems',sub:'Business, finance, labor',issues:[
+    {icon:'💰',name:'Economic Opportunity',desc:"Why your zip code still determines how far you can go."},
+    {icon:'💡',name:'Entrepreneurship',desc:"What it takes to build something from nothing — and who gets that chance."},
+    {icon:'👷',name:'Labor & Workers Rights',desc:"What people deserve in exchange for their time and effort."},
+    {icon:'📊',name:'Financial Literacy',desc:"The tools most people were never taught to use."}
+  ]},
+  {icon:'⚖️',name:'Power & Governance',sub:'Politics, law, military',issues:[
+    {icon:'🏛️',name:'Politics & Policy',desc:"How the rules get made and who gets to make them."},
+    {icon:'⚖️',name:'Criminal Justice',desc:"The gap between what the justice system promises and what it delivers."},
+    {icon:'🎖️',name:'Military & Veterans',desc:"The people who serve and what happens when they come home."},
+    {icon:'🗳️',name:'Civic Participation',desc:"Why so many people have stopped believing their voice matters."}
+  ]},
+  {icon:'🔬',name:'Knowledge & Culture',sub:'Science, media, arts',issues:[
+    {icon:'🔬',name:'Scientific Research',desc:"How discoveries become solutions — and how slowly that usually happens."},
+    {icon:'📡',name:'Media & Information',desc:"Who controls the story and why it matters more than ever."},
+    {icon:'🎨',name:'Arts & Culture',desc:"What gets lost when creativity is treated as a luxury."},
+    {icon:'📖',name:'Misinformation',desc:"The epidemic of lies making it harder to agree on reality."}
+  ]},
+  {icon:'💻',name:'Infrastructure & Access',sub:'Technology, transport, community',issues:[
+    {icon:'💻',name:'Digital Access',desc:"The divide between people who have the tools of the future and people who don't."},
+    {icon:'🚌',name:'Transportation',desc:"How where you can go shapes what you can become."},
+    {icon:'🏘️',name:'Community Development',desc:"What it takes to build a place people actually want to live."},
+    {icon:'🔒',name:'Privacy & Security',desc:"Who owns your data and what they're doing with it."}
+  ]}
+];
+var PATHS=[
+  {icon:'🎓',title:'4-Year University',sub:'Degree program, campus life'},
+  {icon:'🏫',title:'Community College',sub:'Flexible, affordable, local'},
+  {icon:'🔧',title:'Trade / Vocational',sub:'Certification, hands-on skills'},
+  {icon:'🎖️',title:'Military Service',sub:'Service, structure, benefits'},
+  {icon:'💼',title:'Workforce Direct',sub:'Employment, apprenticeship'},
+  {icon:'🚀',title:'Entrepreneurship',sub:'Start something of my own'},
+  {icon:'🧭',title:'Still Figuring It Out',sub:"That's okay too"}
+];
+var Q1=[
+  {t:"What do people come to you for?",c:[{l:"Help, support, or someone to talk to",p:{provider:3,communicator:1}},{l:"To fix, make, or build something",p:{builder:3}},{l:"Advice, a plan, or a fresh perspective",p:{communicator:2,provider:1}},{l:"To get a message out or tell a story",p:{communicator:3}}]},
+  {t:"When you're in your element, what are you doing?",c:[{l:"Creating or constructing something tangible",p:{builder:3}},{l:"Caring for or developing someone else",p:{provider:3}},{l:"Convincing, inspiring, or leading people",p:{communicator:3}},{l:"Figuring out how something works",p:{builder:2,provider:1}}]},
+  {t:"What could you spend hours doing without noticing the time?",c:[{l:"Building, designing, or making things",p:{builder:3}},{l:"Listening to and helping people",p:{provider:3}},{l:"Writing, speaking, or connecting with others",p:{communicator:3}},{l:"Learning how to improve something",p:{builder:1,communicator:1,provider:1}}]},
+  {t:"What do you notice that other people seem to miss?",c:[{l:"When something could be built better",p:{builder:3}},{l:"When someone is struggling or needs support",p:{provider:3}},{l:"When a message isn't landing the right way",p:{communicator:3}},{l:"Patterns in how people or systems behave",p:{communicator:2,provider:1}}]}
+];
+var Q2=[
+  {t:"When you face something you've never dealt with before, what's your first move?",c:[{l:"Jump in and figure it out",p:{experimenter:3}},{l:"Talk it through with someone",p:{collaborator:3}},{l:"Find the story in it first",p:{narrator:3}},{l:"Research until I feel ready",p:{experimenter:1,narrator:1}}]},
+  {t:"How do you know when you've actually figured something out?",c:[{l:"When I can explain it to someone else",p:{narrator:2,collaborator:1}},{l:"When I've tested it and it works",p:{experimenter:3}},{l:"When the people around me get it too",p:{collaborator:3}},{l:"When it feels like a complete story",p:{narrator:3}}]},
+  {t:"When you're stuck, what unsticks you?",c:[{l:"Just trying something — anything",p:{experimenter:3}},{l:"A good conversation with the right person",p:{collaborator:3}},{l:"Writing or talking it out until it clicks",p:{narrator:3}},{l:"Taking a break and coming back fresh",p:{experimenter:1,collaborator:1}}]},
+  {t:"What does your best thinking look like?",c:[{l:"Messy, fast, trial and error",p:{experimenter:3}},{l:"Back and forth with someone I trust",p:{collaborator:3}},{l:"Turning it into a narrative that makes sense",p:{narrator:3}},{l:"Quiet and solo until something breaks through",p:{experimenter:1,narrator:1}}]}
+];
+
+function go(id){
+  document.querySelectorAll('.s,.bs,.rs,.cs,.bps,.ss').forEach(function(e){e.classList.remove('on');});
+  document.getElementById(id).classList.add('on');
+}
+
+function mkGrid(qs,nbtn,onsel){
+  var g=document.createElement('div');g.className='qg';
+  qs.forEach(function(q){
+    var b=document.createElement('button');b.className='qc';b.textContent=q.l;
+    b.onclick=function(){g.querySelectorAll('.qc').forEach(function(x){x.classList.remove('sel');x.style.color='#4A9FD4';});b.classList.add('sel');b.style.color='#fff';onsel(q);document.getElementById(nbtn).classList.add('on');};
+    g.appendChild(b);
+  });
+  return g;
+}
+
+function rp1(){
+  var q=Q1[p1q];
+  document.getElementById('p1q').textContent=q.t;
+  document.querySelectorAll('#p1p .qd').forEach(function(d,i){d.classList.toggle('on',i<=p1q);});
+  var c=document.getElementById('p1c');c.innerHTML='';p1sel=null;
+  document.getElementById('p1n').classList.remove('on');
+  c.appendChild(mkGrid(q.c,'p1n',function(q){p1sel=q;}));
+}
+function p1x(){
+  if(!p1sel)return;
+  Object.keys(p1sel.p).forEach(function(k){p1s[k]=(p1s[k]||0)+p1sel.p[k];});
+  p1q++;
+  if(p1q<Q1.length){rp1();}
+  else{
+    go('p1b');
+    setTimeout(function(){
+      var w=Object.keys(p1s).reduce(function(a,b){return p1s[a]>=p1s[b]?a:b;});
+      var m=M[w];S.type=m.type;S.ti=m.icon;
+      document.getElementById('r1i').textContent=m.icon;
+      document.getElementById('r1n').textContent=m.type;
+      document.getElementById('r1d').textContent=m.desc;
+      document.getElementById('r1s').textContent=m.soc;
+      document.getElementById('b1t').textContent=m.icon+' '+m.type;
+      go('p1r');
+    },2200);
+  }
+}
+
+function rp2(){
+  var q=Q2[p2q];
+  document.getElementById('p2q').textContent=q.t;
+  document.querySelectorAll('#p2p .qd').forEach(function(d,i){d.classList.toggle('on',i<=p2q);});
+  var c=document.getElementById('p2c');c.innerHTML='';p2sel=null;
+  document.getElementById('p2n').classList.remove('on');
+  c.appendChild(mkGrid(q.c,'p2n',function(q){p2sel=q;}));
+}
+function p2x(){
+  if(!p2sel)return;
+  Object.keys(p2sel.p).forEach(function(k){p2s[k]=(p2s[k]||0)+p2sel.p[k];});
+  p2q++;
+  if(p2q<Q2.length){rp2();}
+  else{
+    go('p2b');
+    setTimeout(function(){
+      var w=Object.keys(p2s).reduce(function(a,b){return p2s[a]>=p2s[b]?a:b;});
+      var ww=W[w];S.wire=ww.type;S.wi=ww.icon;
+      document.getElementById('r2i').textContent=ww.icon;
+      document.getElementById('r2n').textContent=ww.type;
+      document.getElementById('r2d').textContent=ww.desc;
+      document.getElementById('r2s').textContent=ww.soc;
+      document.getElementById('b2t').textContent=S.ti+' '+S.type;
+      document.getElementById('b2w').textContent=ww.icon+' '+ww.type;
+      go('p2r');
+    },2200);
+  }
+}
+
+function showCombo(){
+  var key=S.type+'+'+S.wire;
+  var co=C[key]||{name:'The '+S.wire+' '+S.type,desc:'A unique combination that is entirely your own.',detail:"Now let's figure out what your machine runs on."};
+  document.getElementById('coi').innerHTML=S.ti+' <span class="combo-plus">+</span> '+S.wi;
+  document.getElementById('con').textContent=co.name;
+  document.getElementById('cod').textContent=co.desc;
+  document.getElementById('codt').textContent=co.detail;
+  go('combo');
+}
+
+function startP3Cats(){
+  document.getElementById('p3id').textContent=S.wire+' '+S.type;
+  var c=document.getElementById('p3cats');c.innerHTML='';catSel=null;
+  document.getElementById('p3cn').classList.remove('on');
+  var g=document.createElement('div');g.className='cg';
+  CATS.forEach(function(cat){
+    var b=document.createElement('button');b.className='cc';
+    b.innerHTML='<span class="ci">'+cat.icon+'</span><span class="cn">'+cat.name+'</span><span class="csub">'+cat.sub+'</span>';
+    b.onclick=function(){g.querySelectorAll('.cc').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');catSel=cat;document.getElementById('p3cn').classList.add('on');};
+    g.appendChild(b);
+  });
+  c.appendChild(g);
+  go('p3cat');
+}
+
+function showIssues(){
+  if(!catSel)return;
+  document.getElementById('p3it').textContent='Within '+catSel.name+'...';
+  var c=document.getElementById('p3iss2');c.innerHTML='';issSel=null;
+  document.getElementById('p3in').classList.remove('on');
+  catSel.issues.forEach(function(iss){
+    var b=document.createElement('button');b.className='sc';
+    b.innerHTML='<span class="si">'+iss.icon+'</span><div><span class="sn">'+iss.name+'</span><span class="sd">'+iss.desc+'</span></div>';
+    b.onclick=function(){c.querySelectorAll('.sc').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');issSel=iss;S.fuel=iss.name;S.fi=iss.icon;document.getElementById('p3in').classList.add('on');};
+    c.appendChild(b);
+  });
+  go('p3iss');
+}
+
+function showP3Build(){
+  if(!issSel)return;
+  go('p3b');
+  setTimeout(function(){
+    document.getElementById('r3i').textContent=S.fi;
+    document.getElementById('r3n').textContent=S.fuel;
+    document.getElementById('b3t').textContent=S.ti+' '+S.type;
+    document.getElementById('b3w').textContent=S.wi+' '+S.wire;
+    document.getElementById('b3f').textContent=S.fi+' '+S.fuel;
+    go('p3r');
+  },2200);
+}
+
+function initP4(){
+  var g=document.getElementById('p4pw');g.innerHTML='';pathSel=null;
+  document.getElementById('p4n').classList.remove('on');
+  PATHS.forEach(function(pw){
+    var b=document.createElement('button');b.className='pw';
+    b.innerHTML='<span class="pwi">'+pw.icon+'</span><span class="pwn">'+pw.title+'</span><span class="pws">'+pw.sub+'</span>';
+    b.onclick=function(){g.querySelectorAll('.pw').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');pathSel=pw;S.path=pw.title;S.pi2=pw.icon;document.getElementById('p4n').classList.add('on');};
+    g.appendChild(b);
+  });
+  go('p4');
+}
+
+async function genBP(){
+  if(!pathSel)return;
+  go('p4b');
+  var msgs=['Building your machine output...','Generating your first project...','Writing your voice statement...','Finalizing your blueprint...'];
+  var i=0;var iv=setInterval(function(){document.getElementById('p4bt').textContent=msgs[i%msgs.length];i++;},1800);
+  var pr='You are Scholar Foundry by No Barriers Education.\nStudent: Type='+S.type+', Wiring='+S.wire+', Fuel='+S.fuel+', Pathway='+S.path+'\nJSON only: {"voice":"One powerful I-statement specific to their exact combination.","project":"Concrete first project, pathway-appropriate, 2-3 sentences.","path":"2 sentences on where this leads.","edge":"1-2 sentences on what makes this student uniquely hard to replicate."}';
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:pr}]})});
+    var data=await res.json();clearInterval(iv);
+    var parsed=JSON.parse(data.content.map(function(x){return x.text||'';}).join('').replace(/```json|```/g,'').trim());
+    setBP(parsed);
+  }catch(e){
+    clearInterval(iv);
+    setBP({voice:'I am a '+S.wire+' '+S.type+' powered by '+S.fuel+' — and I build the things the world keeps waiting for someone else to make.',project:'Start by finding one person or community affected by '+S.fuel+'. Ask questions, listen deeply, document what you find. That conversation becomes the foundation of everything you build next.',path:'Your path through '+S.path+' gives you a real foundation to test your ideas. The students who change things are the ones who started before they felt ready.',edge:'Your combination of '+S.type+' instincts, '+S.wire+' thinking, and genuine investment in '+S.fuel+' is entirely yours. Nobody else has exactly this machine.'});
+  }
+}
+
+function setBP(p){
+  var key=S.type+'+'+S.wire;
+  var co=C[key]||{name:'The '+S.wire+' '+S.type};
+  document.getElementById('bpt').textContent=co.name;
+  document.getElementById('bps3').textContent='Powered by '+S.fuel+' · '+S.pi2+' '+S.path;
+  document.getElementById('bpm').innerHTML='<span class="btg">'+S.ti+' '+S.type+'</span><span class="bbtg">'+S.wi+' '+S.wire+'</span><span class="btg">'+S.fi+' '+S.fuel+'</span><span class="bmtg">'+S.pi2+' '+S.path+'</span>';
+  document.getElementById('bpvo').textContent=p.voice;
+  document.getElementById('bppr').textContent=p.project;
+  document.getElementById('bppa').textContent=p.path;
+  document.getElementById('bped').textContent=p.edge;
+  go('bp');
+}
+
+function openSB(){
+  sbh=[];
+  document.getElementById('sbm').textContent=S.ti+' '+S.type+' · '+S.wi+' '+S.wire+' · '+S.fi+' '+S.fuel;
+  var msgs=document.getElementById('sbms');msgs.innerHTML='';
+  var opener="You're a "+S.wire+' '+S.type+' powered by '+S.fuel+', heading toward '+S.path+". This is your space — brainstorm ideas, draft your college essay, map out your first move, or just think out loud. What's on your mind?";
+  sbh.push({role:'assistant',content:opener});
+  addMsg('a',opener);
+  go('sb');
+}
+function addMsg(role,text){
+  var msgs=document.getElementById('sbms');
+  var d=document.createElement('div');d.className='msg '+role;
+  var b=document.createElement('div');b.className='mb2';b.textContent=text;
+  d.appendChild(b);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  return b;
+}
+async function sendSB(){
+  var inp=document.getElementById('sbi');
+  var txt=inp.value.trim();if(!txt)return;
+  inp.value='';addMsg('u',txt);sbh.push({role:'user',content:txt});
+  var tb=addMsg('a','...');tb.className='mb2 ty';
+  var sys='You are Scholar Foundry, an AI coach for No Barriers Education. The student is a '+S.wire+' '+S.type+' powered by '+S.fuel+', heading toward '+S.path+'. Help them brainstorm, develop ideas, draft essays, or plan their first move. Be direct, warm, and specific to who they are. Keep responses to 2-4 sentences unless they ask for more.';
+  try{
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,system:sys,messages:sbh})});
+    var data=await res.json();
+    var reply=data.content.map(function(x){return x.text||'';}).join('');
+    tb.className='mb2';tb.textContent=reply;sbh.push({role:'assistant',content:reply});
+    document.getElementById('sbms').scrollTop=document.getElementById('sbms').scrollHeight;
+  }catch(e){tb.className='mb2';tb.textContent='Something went wrong. Try again.';}
+}
+
+function restart(){
+  p1s={builder:0,provider:0,communicator:0};p1q=0;p1sel=null;
+  p2s={experimenter:0,collaborator:0,narrator:0};p2q=0;p2sel=null;
+  catSel=null;issSel=null;pathSel=null;sbh=[];
+  S={type:'',ti:'',wire:'',wi:'',fuel:'',fi:'',path:'',pi2:''};
+  rp1();go('p1');
+}
+
+// wire up p3cat and p4 init
+document.getElementById('p1r').querySelector('.rca button').onclick=function(){rp2();go('p2');};
+document.getElementById('combo').querySelector('.btna').onclick=function(){startP3Cats();};
+document.getElementById('p3r').querySelector('.rca button').onclick=function(){initP4();};
+
+rp1();
+</script>
+</body>
+</html>
