@@ -8,12 +8,111 @@
    READS FROM: nothing (pure CSS, no dependencies)
    CALLS INTO: nothing (index.html links to this file)
    ============================================================ */
+/* ============================================================
+   SECTION:
+   Global Reset And Design Tokens
+
+   PURPOSE:
+   Establishes the shared visual foundation for the whole
+   Scholar Foundry experience.
+
+   USED BY:
+   index.html
+     • stylesheet link
+
+   HTML TOUCHPOINTS:
+   *
+   :root
+   .app
+
+   RELATED SCREENS:
+   All screens
+
+   NOTES:
+   These rules are application infrastructure, not a feature.
+   Future ownership most likely belongs in base.css or tokens.css.
+   ============================================================ */
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--md:#3A0E14;--mg:#5C1A23;--gold:#C9A84C;--gl:#E8CC80;--gp:#FBF5E6;--blue:#4A9FD4;--bl:#A8CFE8;--bp:#EBF4FA;--ow:#FAF8F5;--td:#1A0A0D;--tl:#9A7A80;}
 .app{width:100%;max-width:400px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;position:relative;}
+/* ============================================================
+   SECTION:
+   Screen Containers And Visibility
+
+   PURPOSE:
+   Defines the reusable screen shells and the .on state that
+   makes a screen visible.
+
+   USED BY:
+   navigation.js
+     • go()
+     • goBack()
+   utils.js
+     • restart()
+
+   HTML TOUCHPOINTS:
+   .s
+   .bs
+   .rs
+   .cs
+   .bps
+   .ss
+   .os
+   .ts
+   .on
+
+   RELATED SCREENS:
+   Welcome
+   Pillar I
+   Pillar II
+   Pillar III
+   Pillar IV
+   Blueprint
+   Think It Through
+
+   NOTES:
+   JavaScript decides WHEN a screen receives .on.
+   CSS decides HOW that visible screen is presented.
+   Future ownership belongs in navigation.js (go/goBack) and
+   utils.js (restart).
+   ============================================================ */
 .s,.bs,.rs,.cs,.bps,.ss,.os,.ts{display:none;flex-direction:column;min-height:580px;background:var(--md);border-radius:20px;padding:24px 22px;}
 .s.on,.bs.on,.rs.on,.cs.on,.bps.on,.ss.on,.os.on,.ts.on{display:flex;}
 .rs{padding:0;overflow:hidden;}.bps{background:var(--ow);padding:0;}.ss{padding:0;overflow:hidden;}.bs{align-items:center;justify-content:center;text-align:center;}
+/* ============================================================
+   SECTION:
+   Assembly Progress Tracker
+
+   PURPOSE:
+   Styles the visual machine-part tracker that shows which
+   component is active, pending, or installed.
+
+   USED BY:
+   utils.js
+     • getAsm()
+     • setAsm()
+
+   HTML TOUCHPOINTS:
+   .asm
+   .ast
+   .abox
+   .albl
+   .astat
+   .ablt
+   .adot
+
+   RELATED SCREENS:
+   Pillar I
+   Pillar II
+   Pillar III
+   Pillar IV
+   Blueprint Output
+
+   NOTES:
+   JavaScript generates this markup from the PARTS data array.
+   CSS communicates status through active/done/pending classes.
+   Future ownership belongs in utils.js.
+   ============================================================ */
 .asm{display:flex;align-items:flex-start;margin-bottom:18px;}
 .ast{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
 .abox{width:38px;height:38px;border-radius:8px;border:1.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:15px;background:rgba(255,255,255,.03);transition:all .4s;color:rgba(255,255,255,.2);}
@@ -29,6 +128,47 @@
 .ablt.on .adot:nth-child(2){animation-delay:.35s;}
 .ablt.on .adot:nth-child(3){animation-delay:.7s;}
 @keyframes bpulse{0%,100%{opacity:.2}50%{opacity:1}}
+/* ============================================================
+   SECTION:
+   Welcome And Shared Text Framing
+
+   PURPOSE:
+   Styles the opening screen and shared labels used to frame
+   the user's journey through the experience.
+
+   USED BY:
+   navigation.js
+     • go()
+
+   HTML TOUCHPOINTS:
+   #p0
+   .os
+   .og
+   .msch
+   .mpt
+   .mpt-box
+   .mpt-lbl
+   .mconn
+   .mconn-line
+   .mconn-arr
+   .mst
+   .oh
+   .os2
+   .obtn
+   .ey
+
+   RELATED SCREENS:
+   Welcome
+   Transition Screens
+   Assessment Screens
+
+   NOTES:
+   The welcome screen is static HTML. The same button and
+   eyebrow classes are reused later so the visual language stays
+   consistent across modules.
+   Future ownership belongs in navigation.js. No separate
+   onboarding file is planned.
+   ============================================================ */
 .os{justify-content:flex-start;}
 .og{font-size:8.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
 .msch{display:flex;align-items:center;justify-content:center;margin-bottom:6px;}
@@ -43,6 +183,45 @@
 .os2{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.75;margin-bottom:24px;}
 .obtn{width:100%;padding:13px;background:var(--gold);border:none;border-radius:13px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:auto;}
 .ey{font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+/* ============================================================
+   SECTION:
+   Assessment Question Flow
+
+   PURPOSE:
+   Styles the question text, progress dots, generated answer
+   choices, and disabled/enabled next buttons used in Pillar I
+   and Pillar II assessments.
+
+   USED BY:
+   scoring.js
+     • startP1()
+     • p1x()
+     • p2x()
+   ui.js
+     • rp1()
+     • rp2()
+     • mkGrid()
+
+   HTML TOUCHPOINTS:
+   .pillar-intro
+   .qp
+   .qd
+   .qt
+   .qs
+   .qg
+   .qc
+   .btn
+
+   RELATED SCREENS:
+   Pillar I
+   Pillar II
+
+   NOTES:
+   JavaScript creates the answer buttons and toggles .sel and
+   .on. CSS controls how selected choices and ready buttons
+   appear to the user.
+   Future ownership belongs in scoring.js and ui.js.
+   ============================================================ */
 /* CHANGE 1: Pillar intro style */
 .pillar-intro{font-size:11.5px;color:rgba(255,255,255,.5);margin-bottom:14px;font-style:italic;line-height:1.5;}
 .qp{display:flex;gap:4px;margin-bottom:14px;}
@@ -58,12 +237,100 @@
 .btn.on{opacity:1;}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 .btna{width:100%;padding:11px;background:var(--gold);border:none;border-radius:12px;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:auto;}
+/* ============================================================
+   SECTION:
+   Installation Interstitial
+
+   PURPOSE:
+   Styles the short loading/installing moments between answering
+   questions and revealing a component result.
+
+   USED BY:
+   utils.js
+     • startInstall()
+   ui.js
+     • fireReveal1()
+     • fireReveal2()
+   api.js
+     • genBP() (parked for Phase 1)
+
+   HTML TOUCHPOINTS:
+   .bs
+   .inst-wrap
+   .inst-eyebrow
+   .inst-cname
+   .inst-bar-w
+   .inst-bar
+   .inst-msg
+
+   RELATED SCREENS:
+   Core Installing
+   Wiring Installing
+   Blueprint Generating
+
+   NOTES:
+   JavaScript changes the progress bar width and message text.
+   CSS keeps the interstitial centered and visually separate from
+   regular assessment screens.
+   Future ownership belongs in utils.js.
+   ============================================================ */
 .inst-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .inst-eyebrow{font-size:8px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:5px;font-family:monospace;}
 .inst-cname{font-size:22px;font-weight:700;color:#fff;letter-spacing:.05em;margin-bottom:22px;font-family:monospace;}
 .inst-bar-w{width:160px;height:2px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden;margin-bottom:14px;}
 .inst-bar{height:100%;background:var(--gold);border-radius:999px;width:0;transition:width 2.15s ease;}
 .inst-msg{font-size:9.5px;color:rgba(255,255,255,.3);letter-spacing:.06em;font-family:monospace;}
+/* ============================================================
+   SECTION:
+   Result Reveal And Machine Status
+
+   PURPOSE:
+   Styles the animated reveal for locked-in Core and Wiring
+   results, including confidence, secondary influence, and the
+   machine status strip.
+
+   USED BY:
+   utils.js
+     • animReveal()
+   ui.js
+     • fireReveal1()
+     • fireReveal2()
+   scoring.js
+     • calcConf()
+
+   HTML TOUCHPOINTS:
+   #p1r
+   #p2r
+   .rt
+   .ri-lock
+   .lock-badge
+   .pattern-badge
+   .conf-badge
+   .conf-high
+   .conf-medium
+   .conf-low
+   .re
+   .rl
+   .rn
+   .rd
+   .rs2x
+   .rca
+   .rb
+   .mb
+   .mp
+   .mc
+
+   RELATED SCREENS:
+   Pillar I Result
+   Pillar II Result
+
+   NOTES:
+   JavaScript fills in result copy from M and W data, then adds
+   .go to stage the reveal. CSS owns the reveal sequence and the
+   status-strip presentation.
+   Future ownership belongs in ui.js (fireReveal1/2), utils.js
+   (animReveal), and scoring.js (calcConf).
+   ============================================================ */
 .rt{padding:26px 22px 28px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 @keyframes lockin{0%{transform:translateY(-22px) scale(1.1);opacity:0}65%{transform:translateY(4px) scale(.96);opacity:1}82%{transform:translateY(-2px) scale(1.01)}100%{transform:translateY(0) scale(1)}}
 .ri-lock{font-size:44px;margin-bottom:10px;opacity:0;}
@@ -99,6 +366,43 @@
 .mp.em{background:rgba(255,255,255,.05);color:rgba(255,255,255,.22);}
 .mc{color:rgba(255,255,255,.22);font-size:10px;}
 @keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+/* ============================================================
+   SECTION:
+   Tiebreaker Questions
+
+   PURPOSE:
+   Styles the fallback question screens shown when assessment
+   scoring cannot clearly choose a primary result.
+
+   USED BY:
+   tiebreaker.js
+     • showTie1()
+     • resolveTie1()
+     • showTie2()
+     • resolveTie2()
+
+   HTML TOUCHPOINTS:
+   #p1tie
+   #p2tie
+   .ts
+   .tie-eyebrow
+   .tie-head
+   .tie-sub
+   .tie-opts
+   .tie-opt
+   .tie-opt-label
+   .tie-opt-sub
+
+   RELATED SCREENS:
+   Pillar I Tiebreaker
+   Pillar II Tiebreaker
+
+   NOTES:
+   JavaScript generates .tie-opt buttons from TB1 and TB2.
+   CSS makes the tiebreaker feel like part of the same assessment
+   flow while separating it from the normal two-column grid.
+   Future ownership belongs in tiebreaker.js.
+   ============================================================ */
 .tie-eyebrow{font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px;font-family:monospace;}
 .tie-head{font-size:17px;font-weight:600;color:#fff;line-height:1.45;margin-bottom:6px;}
 .tie-sub{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:22px;line-height:1.5;}
@@ -110,6 +414,39 @@
 .tie-opt.sel .tie-opt-label{color:#fff;}
 .tie-opt-sub{font-size:10.5px;color:rgba(74,159,212,.65);line-height:1.4;}
 .tie-opt.sel .tie-opt-sub{color:rgba(255,255,255,.72);}
+/* ============================================================
+   SECTION:
+   Machine Designation Summary
+
+   PURPOSE:
+   Styles the combined Core + Wiring designation screen after
+   Pillar II is complete.
+
+   USED BY:
+   ui.js
+     • showCombo()
+
+   HTML TOUCHPOINTS:
+   #combo
+   .cs
+   .combo-tag
+   .combo-sub
+   .combo-name
+   .combo-desc
+   .combo-detail
+   .combo-own
+   .combo-div
+   .watchout-label
+
+   RELATED SCREENS:
+   Machine Designation
+   Value Proposition Layer 2
+
+   NOTES:
+   JavaScript computes the designation from S.type and S.wire.
+   CSS gives that computed identity a readable summary screen.
+   Future ownership belongs in ui.js.
+   ============================================================ */
 .combo-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:999px;padding:3px 11px;font-size:7.5px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;font-family:monospace;}
 .combo-sub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;font-family:monospace;}
 .combo-name{font-size:25px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:10px;letter-spacing:-.01em;}
@@ -119,9 +456,87 @@
 .combo-div{width:34px;height:1px;background:rgba(255,255,255,.1);margin:13px 0;}
 /* CHANGE 5: watchout style */
 .watchout-label{font-size:9.5px;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.04em;margin-bottom:3px;}
+/* ============================================================
+   SECTION:
+   Legacy Pillar IV Pathway Picker
+
+   PURPOSE:
+   Styles the older pathway-selection screen that generates the
+   original AI-powered machine output blueprint.
+
+   USED BY:
+   ui.js
+     • initP4() (parked for Phase 1)
+   api.js
+     • genBP() (parked for Phase 1)
+
+   HTML TOUCHPOINTS:
+   #p4
+   .pi
+   .pg
+   .pw
+   .pwi
+   .pwn
+   .pws
+   #p4pw
+   #p4n
+
+   RELATED SCREENS:
+   Legacy Output Calibration
+   Generated Blueprint Output
+
+   NOTES:
+   This section remains connected to the older generated
+   blueprint flow. The newer Pillar III/IV manual blueprint flow
+   starts later in this file.
+   Future ownership belongs in ui.js / api.js, parked for Phase 1.
+   ============================================================ */
 .pi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:11px 13px;margin-bottom:14px;}
 .pi p{font-size:12px;color:rgba(255,255,255,.62);line-height:1.65;margin:0;}
 .pi strong{color:var(--gl);}
+/* ============================================================
+   SECTION:
+   Pillar III Sector And Issue Selection
+
+   PURPOSE:
+   Styles the multi-select Fuel screens where users choose
+   sectors and then issues inside those sectors.
+
+   USED BY:
+   sectors.js
+     • goToSectors()
+     • goToIssues()
+     • goToP4Intro()
+
+   HTML TOUCHPOINTS:
+   #s-sectors
+   #s-issues
+   #sect-grid
+   #iss-grid
+   .p3-instruction
+   .p3-explore
+   .sect-grid
+   .sect-tile
+   .sect-tile-icon
+   .sect-tile-name
+   .sect-tile-sub
+   .sc
+   .si3
+   .sn
+   .sd
+   .bk
+
+   RELATED SCREENS:
+   Pillar III Fuel Source
+   Sector Selection
+   Issue Selection
+
+   NOTES:
+   JavaScript creates sector tiles from CATS and issue buttons
+   from the selected sector data. CSS owns the visual difference
+   between sectors, issues, and selected states.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* CHANGE 3 & 6: Pillar 3 instruction style */
 .p3-instruction{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:6px;font-style:italic;}
 .p3-explore{font-size:10.5px;color:rgba(255,255,255,.35);margin-bottom:14px;font-style:italic;}
@@ -144,12 +559,87 @@
 .sd{font-size:10px;color:rgba(74,159,212,.65);line-height:1.4;}
 .sc.sel .sd{color:rgba(255,255,255,.72);}
 .bk{background:transparent;border:none;color:rgba(255,255,255,.38);font-size:11px;cursor:pointer;font-family:inherit;padding:0;margin-bottom:9px;}
+/* ============================================================
+   SECTION:
+   Pathway Choice Buttons
+
+   PURPOSE:
+   Styles the selectable post-high-school pathway options used
+   by the legacy blueprint generator.
+
+   USED BY:
+   ui.js
+     • initP4() (parked for Phase 1)
+
+   HTML TOUCHPOINTS:
+   .pg
+   .pw
+   .pwi
+   .pwn
+   .pws
+
+   RELATED SCREENS:
+   Legacy Output Calibration
+
+   NOTES:
+   JavaScript creates these buttons from PATHS and toggles .sel.
+   CSS only controls the cards' appearance and selected state.
+   Future ownership belongs in ui.js, parked for Phase 1.
+   ============================================================ */
 .pg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;}
 .pw{background:rgba(74,159,212,.09);border:1px solid rgba(74,159,212,.3);border-radius:12px;padding:11px;cursor:pointer;text-align:left;font-family:inherit;transition:all .2s;width:100%;display:flex;flex-direction:column;gap:2px;}
 .pw:hover{background:rgba(74,159,212,.18);}
 .pw.sel{background:var(--gold);border-color:var(--gold);}
 .pwi{font-size:16px;}.pwn{font-size:11px;font-weight:600;color:#4A9FD4;}.pw.sel .pwn{color:#fff;}
 .pws{font-size:9px;color:rgba(74,159,212,.7);line-height:1.4;}.pw.sel .pws{color:rgba(255,255,255,.72);}
+/* ============================================================
+   SECTION:
+   Generated Blueprint Output
+
+   PURPOSE:
+   Styles the older AI-generated machine output screen, including
+   header, component tags, response cards, and action buttons.
+
+   USED BY:
+   api.js
+     • genBP() (parked for Phase 1)
+     • openSB() (parked for Phase 1)
+   ui.js
+     • setBP() (parked for Phase 1)
+
+   HTML TOUCHPOINTS:
+   #bp
+   .bps
+   .bph
+   .bpe
+   .bpt
+   .bps2b
+   .asm-c
+   .abox-c
+   .aconn-c
+   .bpb
+   .bpsec
+   .bpsl
+   .bpc
+   .bpv
+   .bpm
+   .btg
+   .bbtg
+   .bmtg
+   .bpac
+   .bpbtn
+   .bpbg
+
+   RELATED SCREENS:
+   Generated Blueprint Output
+   Think It Through
+
+   NOTES:
+   JavaScript fills this screen from an AI response and the
+   current S state object. CSS organizes the generated content
+   into a shareable, readable output.
+   Future ownership belongs in api.js / ui.js, parked for Phase 1.
+   ============================================================ */
 .bph{background:var(--md);padding:18px 18px 14px;}
 .bpe{font-size:7.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;font-family:monospace;}
 .bpt{font-size:17px;font-weight:700;color:#fff;margin-bottom:2px;}
@@ -171,6 +661,45 @@
 .bpac{padding:0 17px 17px;display:flex;flex-direction:column;gap:7px;}
 .bpbtn{width:100%;padding:11px;background:var(--gold);border:none;border-radius:11px;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;}
 .bpbg{width:100%;padding:8px;background:transparent;border:1px solid rgba(107,31,42,.15);border-radius:11px;color:var(--tl);font-size:10.5px;cursor:pointer;font-family:inherit;}
+/* ============================================================
+   SECTION:
+   Think It Through Chat
+
+   PURPOSE:
+   Styles the in-app coaching chat connected to the generated
+   blueprint output.
+
+   USED BY:
+   api.js
+     • openSB() (parked for Phase 1)
+     • sendSB() (parked for Phase 1)
+   ui.js
+     • addMsg() (parked for Phase 1)
+
+   HTML TOUCHPOINTS:
+   #sb
+   .ss
+   .sh
+   .sbk
+   .st
+   .sm
+   .smsg
+   .msg
+   .mb2
+   .sir
+   .si2
+   .snd
+
+   RELATED SCREENS:
+   Think It Through
+   Generated Blueprint Output
+
+   NOTES:
+   JavaScript appends user and assistant messages into the chat
+   stream. CSS distinguishes roles and keeps input controls fixed
+   at the bottom of the chat screen.
+   Future ownership belongs in api.js / ui.js, parked for Phase 1.
+   ============================================================ */
 .sh{background:var(--mg);padding:13px 17px;display:flex;align-items:center;gap:9px;}
 .sbk{background:transparent;border:none;color:rgba(255,255,255,.45);font-size:17px;cursor:pointer;padding:0;}
 .st{font-size:12px;font-weight:600;color:#fff;flex:1;}.sm{font-size:8.5px;color:rgba(255,255,255,.38);}
@@ -185,19 +714,165 @@
 .si2{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:8px 12px;font-size:12px;font-family:inherit;color:#fff;outline:none;}
 .si2::placeholder{color:rgba(255,255,255,.32);}.si2:focus{border-color:var(--gold);}
 .snd{background:var(--gold);border:none;border-radius:50%;width:33px;height:33px;cursor:pointer;font-size:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+/* ============================================================
+   SECTION:
+   Global Navigation And Retake Links
+
+   PURPOSE:
+   Styles the persistent Back control and low-emphasis retake or
+   restart links used across result and final screens.
+
+   USED BY:
+   navigation.js
+     • go()
+     • goBack()
+   scoring.js
+     • resetP1()
+     • resetP2()
+   utils.js
+     • restart()
+
+   HTML TOUCHPOINTS:
+   #gback
+   .gback
+   .retake-link
+
+   RELATED SCREENS:
+   All navigable screens
+   Pillar I Result
+   Pillar II Result
+   Final Screen
+
+   NOTES:
+   JavaScript toggles .gback.on based on the current screen and
+   BACK_MAP. CSS keeps these controls available without competing
+   with the main call to action.
+   Future ownership belongs in navigation.js, scoring.js, and
+   utils.js.
+   ============================================================ */
 .gback{position:absolute;top:16px;right:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:20px;color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;padding:5px 12px;line-height:1;z-index:10;display:none;transition:all .15s;}
 .gback:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);}
 .gback.on{display:block;}
 .retake-link{background:none;border:none;color:rgba(255,255,255,.2);font-size:10.5px;cursor:pointer;padding:0;margin-top:10px;display:block;width:100%;text-align:center;transition:color .15s;}
 .retake-link:hover{color:rgba(255,255,255,.5);}
+/* ============================================================
+   SECTION:
+   Entry Animations
+
+   PURPOSE:
+   Styles small reveal animations used to pace the opening screen
+   and result sequences.
+
+   USED BY:
+   index.html
+     • static .fi classes in markup
+   utils.js
+     • animReveal()
+
+   HTML TOUCHPOINTS:
+   .fi
+   .go
+
+   RELATED SCREENS:
+   Welcome
+   Pillar I Result
+   Pillar II Result
+   Value Proposition Screens
+
+   NOTES:
+   JavaScript restarts .go animations by removing and re-adding
+   the class. CSS owns the motion language.
+   No separate file split is planned for this beyond utils.js.
+   ============================================================ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .fi{opacity:0;animation:fadeUp 0.8s ease forwards;}
+/* ============================================================
+   SECTION:
+   Pillar Transition Screens
+
+   PURPOSE:
+   Styles the explanatory bridge screens shown before each major
+   pillar begins.
+
+   USED BY:
+   navigation.js
+     • go()
+   scoring.js
+     • startP1()
+   ui.js
+     • rp2()
+   sectors.js
+     • goToSectors()
+     • goToProblemStatement()
+
+   HTML TOUCHPOINTS:
+   #tr1
+   #tr2
+   #s-p3intro
+   #s-p4intro
+   .tr
+   .tr-body
+   .tr-eye
+   .tr-main
+   .tr-sup
+   .tr-inst
+
+   RELATED SCREENS:
+   Pillar I Intro
+   Pillar II Intro
+   Pillar III Intro
+   Pillar IV Intro
+
+   NOTES:
+   These screens teach the user what kind of thinking is expected
+   before JavaScript routes them into the next interactive module.
+   Future ownership belongs in navigation.js and sectors.js. No
+   separate transitions file is planned.
+   ============================================================ */
 .tr{display:none;flex-direction:column;min-height:580px;background:var(--md);border-radius:20px;padding:24px 22px;}.tr.on{display:flex;}
 .tr-body{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;}
 .tr-eye{font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-family:monospace;text-align:center;}
 .tr-main{font-size:18px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:10px;}
 .tr-sup{font-size:12px;color:rgba(255,255,255,.48);line-height:1.7;margin-bottom:20px;}
 .tr-inst{font-size:11.5px;color:var(--gl);line-height:1.65;padding:10px 13px;background:rgba(201,168,76,.07);border-left:2px solid rgba(201,168,76,.38);border-radius:0 8px 8px 0;}
+/* ============================================================
+   SECTION:
+   Value Proposition Layer Screens
+
+   PURPOSE:
+   Styles the older progressive value-proposition cards shown
+   after Pillar I and after the Core + Wiring designation.
+
+   USED BY:
+   ui.js
+     • buildVP1()
+     • buildVP2()
+   navigation.js
+     • go()
+
+   HTML TOUCHPOINTS:
+   #vp1
+   #vp2
+   .vps
+   .vp-eye
+   .vp-head
+   .vp-sub
+   .vp-card
+   .vp-card-label
+   .vp-new-badge
+   .vp-sentence
+   .vp-tag
+   .vp-blank
+
+   RELATED SCREENS:
+   Value Proposition Layer 1
+   Value Proposition Layer 2
+
+   NOTES:
+   JavaScript fills the dynamic spans from the shared S state.
+   CSS shows completed value-prop pieces differently from blanks.
+   Future ownership belongs in ui.js.
+   ============================================================ */
 /* VALUE PROP SCREENS */
 .vps{display:none;flex-direction:column;min-height:580px;background:var(--md);border-radius:20px;padding:24px 22px;}
 .vps.on{display:flex;}
@@ -221,6 +896,84 @@
    ============================================================ */
 
 
+/* ============================================================
+   SECTION:
+   Manual Pillar III And IV Additions
+
+   PURPOSE:
+   Marks the boundary where the newer manual Fuel and Blueprint
+   flow was merged into the older assessment experience.
+
+   USED BY:
+   sectors.js
+     • goToSectors()
+     • goToIssues()
+     • goToProblemStatement()
+     • goToHypothesis()
+     • goToVP()
+     • goToFinal()
+
+   HTML TOUCHPOINTS:
+   #s-sectors
+   #s-issues
+   #s-problem
+   #s-hypothesis
+   #s-vp
+   #s-final
+
+   RELATED SCREENS:
+   Pillar III
+   Pillar IV
+   Manual Blueprint
+
+   NOTES:
+   This boundary matters architecturally because the codebase has
+   both legacy generated-output screens and newer manual blueprint
+   screens. Future refactoring should keep those flows explicit.
+   Future ownership belongs in sectors.js, which absorbs the full
+   Pillar III/IV manual flow -- no separate fuel/blueprint files
+   are planned.
+   ============================================================ */
+
+
+/* ============================================================
+   SECTION:
+   Problem Statement Form
+
+   PURPOSE:
+   Styles the Pillar IV form where users write what they know
+   about the problem and mark unknowns as useful research gaps.
+
+   USED BY:
+   sectors.js
+     • goToProblemStatement()
+     • goToHypothesis()
+
+   HTML TOUCHPOINTS:
+   #s-problem
+   #ps-what
+   #ps-cause
+   #ps-who
+   #ps-solutions
+   #ps-what-unk
+   #ps-cause-unk
+   #ps-who-unk
+   #ps-sol-unk
+   .ps-field
+   .ps-label
+   .ps-input
+   .ps-unknown
+
+   RELATED SCREENS:
+   Pillar IV Problem Statement
+   Pillar IV Hypothesis
+
+   NOTES:
+   JavaScript reads this form into the S state object before
+   moving to the hypothesis screen. CSS makes known and unknown
+   inputs feel like one coherent research step.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* PROBLEM STATEMENT */
 .ps-field{margin-bottom:14px;}
 .ps-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-family:monospace;margin-bottom:6px;}
@@ -231,11 +984,73 @@
 .ps-unknown input{accent-color:var(--gold);}
 .ps-unknown span{font-size:11px;color:rgba(255,255,255,.4);}
 
+/* ============================================================
+   SECTION:
+   Hypothesis Input
+
+   PURPOSE:
+   Styles the freeform writing area where the user turns their
+   problem research into a working hypothesis.
+
+   USED BY:
+   sectors.js
+     • goToHypothesis()
+     • goToVP()
+
+   HTML TOUCHPOINTS:
+   #s-hypothesis
+   #hyp-input
+   .hyp-area
+
+   RELATED SCREENS:
+   Pillar IV Hypothesis
+   Manual Value Proposition
+
+   NOTES:
+   JavaScript stores the textarea value in S.hypothesis and later
+   previews it in the manual value proposition and final screen.
+   CSS only controls the writing surface.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* HYPOTHESIS */
 .hyp-area{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.09);border-radius:12px;padding:14px;color:#fff;font-size:14px;font-family:inherit;resize:none;line-height:1.6;min-height:120px;transition:border-color .2s;}
 .hyp-area:focus{outline:none;border-color:rgba(201,168,76,.4);}
 .hyp-area::placeholder{color:rgba(255,255,255,.2);}
 
+/* ============================================================
+   SECTION:
+   Manual Value Proposition Card
+
+   PURPOSE:
+   Styles the newer Pillar IV value proposition summary that
+   combines designation, sector, hypothesis, and first move.
+
+   USED BY:
+   sectors.js
+     • goToVP()
+     • goToFinal()
+
+   HTML TOUCHPOINTS:
+   #s-vp
+   #vp-desig
+   #vp-sector
+   #vp-hyp-preview
+   #vp-action
+   .np-vp-card
+   .np-vp-label
+   .np-vp-sentence
+   .np-vp-tag
+   .np-vp-blank
+
+   RELATED SCREENS:
+   Manual Value Proposition
+   Final Blueprint Screen
+
+   NOTES:
+   The np- prefix intentionally separates this newer manual card
+   from the older .vp-* layered value-prop screens above.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* MANUAL VALUE PROP (Pillar IV) — namespaced "np-" to avoid
    colliding with the existing .vp-card/.vp-sentence/.vp-tag/
    .vp-blank classes used by the vp1/vp2/vp3 screens above. */
@@ -245,6 +1060,35 @@
 .np-vp-tag{color:var(--gold);font-weight:700;}
 .np-vp-blank{color:rgba(255,255,255,.22);border-bottom:1px dashed rgba(255,255,255,.22);}
 
+/* ============================================================
+   SECTION:
+   First Move Action Input
+
+   PURPOSE:
+   Styles the final user-entered action step that turns the
+   blueprint from reflection into a concrete next move.
+
+   USED BY:
+   sectors.js
+     • goToVP()
+     • goToFinal()
+
+   HTML TOUCHPOINTS:
+   #action-input
+   .action-box
+   .action-label
+   .action-input
+
+   RELATED SCREENS:
+   Manual Value Proposition
+   Final Blueprint Screen
+
+   NOTES:
+   JavaScript saves this input into S.action before rendering the
+   final screen. CSS gives the action a stronger visual emphasis
+   because it is the practical output of the flow.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* FIRST MOVE / ACTION INPUT */
 .action-box{background:rgba(201,168,76,.06);border:1.5px solid var(--gold);border-radius:14px;padding:18px;margin-bottom:16px;}
 .action-label{font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-family:monospace;margin-bottom:8px;}
@@ -252,9 +1096,43 @@
 .action-input:focus{outline:none;border-color:var(--gold);}
 .action-input::placeholder{color:rgba(255,255,255,.2);}
 
+/* ============================================================
+   SECTION:
+   Final Manual Blueprint Screen
+
+   PURPOSE:
+   Styles the session-complete screen that summarizes designation,
+   fuel, hypothesis, and first move.
+
+   USED BY:
+   sectors.js
+     • goToFinal()
+   utils.js
+     • restart()
+
+   HTML TOUCHPOINTS:
+   #s-final
+   #final-desig
+   #final-fuel
+   #final-hyp
+   #final-action
+   .bp-card
+   .bp-section-label
+   .bp-content
+   .final-badge
+
+   RELATED SCREENS:
+   Final Blueprint Screen
+   Manual Value Proposition
+
+   NOTES:
+   JavaScript composes this screen from the S state object. CSS
+   makes the final state feel complete and reviewable without
+   creating new data or behavior.
+   Future ownership belongs in sectors.js.
+   ============================================================ */
 /* FINAL SCREEN */
 .bp-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);border-radius:14px;padding:16px;margin-bottom:12px;}
 .bp-section-label{font-size:8px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-family:monospace;margin-bottom:6px;}
 .bp-content{font-size:13px;color:rgba(255,255,255,.8);line-height:1.7;}
 .final-badge{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:999px;padding:4px 14px;font-size:9px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;font-family:monospace;margin-bottom:16px;}
-
