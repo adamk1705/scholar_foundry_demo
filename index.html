@@ -348,6 +348,7 @@
 <script src="state.js"></script>
 <script src="questions.js"></script>
 <script src="utils.js"></script>
+<script src="navigation.js"></script>
 <script>
 
 
@@ -367,18 +368,6 @@ function backP2(){
   p2q--;p2sel=null;
   setAsm('asm2',1,[0]);rp2();go('p2');
 }
-function goBack(){if(BACK_MAP[currentScreen])BACK_MAP[currentScreen]();}
-function go(id){
-  document.querySelectorAll('.s,.bs,.rs,.cs,.bps,.ss,.os,.ts,.tr,.vps').forEach(function(e){e.classList.remove('on');});
-  document.getElementById(id).classList.add('on');
-  currentScreen=id;
-  var btn=document.getElementById('gback');
-  if(btn)btn.classList.toggle('on',NO_BACK.indexOf(id)===-1);
-}
-function showWNew(){}
-function showWReturn(){}
-function submitNew(){}
-function submitReturn(){}
 async function saveProfile(){}
 function loadSavedProfile(){}
 function mkGrid(qs,nbtn,onsel){var g=document.createElement('div');g.className='qg';qs.forEach(function(q){var b=document.createElement('button');b.className='qc';b.textContent=q.l;b.onclick=function(){g.querySelectorAll('.qc').forEach(function(x){x.classList.remove('sel');x.style.color='#4A9FD4';});b.classList.add('sel');b.style.color='#fff';onsel(q);document.getElementById(nbtn).classList.add('on');};g.appendChild(b);});return g;}
