@@ -345,12 +345,8 @@
 </div>
 
 </div>
+<script src="state.js"></script>
 <script>
-var S={type:'',ti:'',wire:'',wi:'',fuel:'',fi:'',path:'',pi2:'',p1conf:'',p1sec:'',p2conf:'',p2sec:'',designation:'',sectors:[],issues:[],hypothesis:'',action:'',problemWhat:'',problemCause:'',problemWho:'',problemSolutions:''};
-var p1s={builder:0,provider:0,communicator:0},p1q=0,p1sel=null;
-var p2s={experimenter:0,collaborator:0,narrator:0},p2q=0,p2sel=null;
-var tie1A=null,tie1B=null,tie1Sel=null,tie2A=null,tie2B=null,tie2Sel=null;
-var pathSel=null,sbh=[],p1history=[],p2history=[];
 
 var M={
   // CHANGE 2: Builder archetype clarification added to type label
@@ -511,34 +507,6 @@ var PARTS=[{icon:'⚙',lbl:'CORE'},{icon:'⚡',lbl:'WIRING'},{icon:'⛽',lbl:'FU
 
 function getAsm(active,done){var h='<div class="asm">';PARTS.forEach(function(p,i){var cl=done.indexOf(i)>-1?'done':active===i?'active':'pending';var st=cl==='done'?'INSTALLED':cl==='active'?'ACTIVE':'PENDING';var icon=cl==='done'?'✓':p.icon;h+='<div class="ast '+cl+'"><div class="abox">'+icon+'</div><div class="albl">'+p.lbl+'</div><div class="astat">'+st+'</div></div>';if(i<3){var bon=cl==='done'||cl==='active';h+='<div class="ablt'+(bon?' on':'')+'"><div class="adot"></div><div class="adot"></div><div class="adot"></div></div>';}});return h+'</div>';}
 function setAsm(id,active,done){var el=document.getElementById(id);if(el)el.innerHTML=getAsm(active,done);}
-var NO_BACK=['p0','p1b','p2b','p4b'];
-var BACK_MAP={
-  'p0':function(){},
-  'tr1':function(){go('p0');},
-  'p1':function(){backP1();},
-  'p1tie':function(){backP1();},
-  'p1r':function(){resetP1();go('tr1');},
-  'vp1':function(){go('p1r');},
-  'tr2':function(){go('vp1');},
-  'p2':function(){backP2();},
-  'p2tie':function(){backP2();},
-  'p2r':function(){resetP2();go('tr2');},
-  'combo':function(){go('p2r');},
-  'vp2':function(){go('combo');},
-  's-p3intro':function(){go('vp2');},
-  's-sectors':function(){go('s-p3intro');},
-  's-issues':function(){go('s-sectors');},
-  's-p4intro':function(){go('s-issues');},
-  's-problem':function(){go('s-p4intro');},
-  's-hypothesis':function(){go('s-problem');},
-  's-vp':function(){go('s-hypothesis');},
-  's-final':function(){go('s-vp');},
-  // PARKED FOR PHASE 1 -- reconnect when pathway-select + AI blueprint go live:
-  'p4':function(){go('s-final');},
-  'bp':function(){go('p4');},
-  'sb':function(){go('bp');}
-};
-var currentScreen='p0';
 function resetP1(){p1s={builder:0,provider:0,communicator:0};p1q=0;p1sel=null;p1history=[];tie1A=null;tie1B=null;tie1Sel=null;}
 function resetP2(){p2s={experimenter:0,collaborator:0,narrator:0};p2q=0;p2sel=null;p2history=[];tie2A=null;tie2B=null;tie2Sel=null;}
 function backP1(){
