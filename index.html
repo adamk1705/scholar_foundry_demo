@@ -350,32 +350,14 @@
 <script src="utils.js"></script>
 <script src="navigation.js"></script>
 <script src="tiebreaker.js"></script>
+<script src="scoring.js"></script>
 <script>
 
 
-function resetP1(){p1s={builder:0,provider:0,communicator:0};p1q=0;p1sel=null;p1history=[];tie1A=null;tie1B=null;tie1Sel=null;}
-function resetP2(){p2s={experimenter:0,collaborator:0,narrator:0};p2q=0;p2sel=null;p2history=[];tie2A=null;tie2B=null;tie2Sel=null;}
-function backP1(){
-  if(p1history.length===0){go('tr1');return;}
-  var last=p1history.pop();
-  Object.keys(last).forEach(function(k){p1s[k]-=last[k];});
-  p1q--;p1sel=null;
-  setAsm('asm1',0,[]);rp1();go('p1');
-}
-function backP2(){
-  if(p2history.length===0){go('tr2');return;}
-  var last=p2history.pop();
-  Object.keys(last).forEach(function(k){p2s[k]-=last[k];});
-  p2q--;p2sel=null;
-  setAsm('asm2',1,[0]);rp2();go('p2');
-}
 async function saveProfile(){}
 function loadSavedProfile(){}
 function mkGrid(qs,nbtn,onsel){var g=document.createElement('div');g.className='qg';qs.forEach(function(q){var b=document.createElement('button');b.className='qc';b.textContent=q.l;b.onclick=function(){g.querySelectorAll('.qc').forEach(function(x){x.classList.remove('sel');x.style.color='#4A9FD4';});b.classList.add('sel');b.style.color='#fff';onsel(q);document.getElementById(nbtn).classList.add('on');};g.appendChild(b);});return g;}
-function calcConf(scores){var sorted=Object.keys(scores).sort(function(a,b){return scores[b]-scores[a];});var gap=scores[sorted[0]]-scores[sorted[1]];return{primary:sorted[0],secondary:sorted[1],gap:gap,confidence:gap>=3?'high':gap>=1?'medium':'low'};}
-function startP1(){setAsm('asm1',0,[]);rp1();go('p1');}
 function rp1(){var q=Q1[p1q];document.getElementById('p1q').textContent=q.t;document.querySelectorAll('#p1p .qd').forEach(function(d,i){d.classList.toggle('on',i<=p1q);});var c=document.getElementById('p1c');c.innerHTML='';p1sel=null;document.getElementById('p1n').classList.remove('on');c.appendChild(mkGrid(q.c,'p1n',function(q){p1sel=q;}));}
-function p1x(){if(!p1sel)return;p1history.push(Object.assign({},p1sel.p));Object.keys(p1sel.p).forEach(function(k){p1s[k]=(p1s[k]||0)+p1sel.p[k];});p1q++;if(p1q<Q1.length){rp1();}else{var res=calcConf(p1s);if(res.gap===0){showTie1(res.primary,res.secondary);}else{fireReveal1(res);}}}
 function fireReveal1(res){
   var m=M[res.primary];S.type=m.shortType||m.type;S.ti=m.icon;S.p1sec=res.secondary;S.p1conf=res.confidence;
   go('p1b');startInstall('ib1','im1',['Analyzing input...','Identifying core type...','Component found...','Locking in...']);
@@ -397,7 +379,6 @@ function fireReveal1(res){
   },2300);
 }
 function rp2(){setAsm('asm2',1,[0]);var q=Q2[p2q];document.getElementById('p2q').textContent=q.t;document.querySelectorAll('#p2p .qd').forEach(function(d,i){d.classList.toggle('on',i<=p2q);});var c=document.getElementById('p2c');c.innerHTML='';p2sel=null;document.getElementById('p2n').classList.remove('on');c.appendChild(mkGrid(q.c,'p2n',function(q){p2sel=q;}));}
-function p2x(){if(!p2sel)return;p2history.push(Object.assign({},p2sel.p));Object.keys(p2sel.p).forEach(function(k){p2s[k]=(p2s[k]||0)+p2sel.p[k];});p2q++;if(p2q<Q2.length){rp2();}else{var res=calcConf(p2s);if(res.gap===0){showTie2(res.primary,res.secondary);}else{fireReveal2(res);}}}
 function fireReveal2(res){
   var ww=W[res.primary];S.wire=ww.type;S.wi=ww.icon;S.p2sec=res.secondary;S.p2conf=res.confidence;
   go('p2b');startInstall('ib2','im2',['Mapping cognitive pathways...','Analyzing operating style...','Wiring pattern found...','Locking in...']);
